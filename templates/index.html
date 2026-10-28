@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptCraft AI — One Idea. Any Prompt. | Universal AI Prompt Studio</title>
+  <meta name="description" content="Turn your imagination into powerful prompts for images, videos, websites, code and more. Small, futuristic universal prompt generator for IPE.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b5cf6'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+</head>
+<body>
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow glow-top-left" aria-hidden="true"></div>
+  <div class="ambient-glow glow-top-right" aria-hidden="true"></div>
+  <div class="ambient-glow glow-center" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="toast" role="alert" aria-live="polite">
+    <span class="toast-icon">✓</span>
+    <span class="toast-message" id="toast-message">Prompt copied to clipboard!</span>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="top">
+    <div class="nav-container">
+      <a href="#top" class="brand-logo" aria-label="PromptCraft AI Home">
+        <span class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </span>
+        <span class="brand-text">PromptCraft<span class="brand-ai">AI</span></span>
+      </a>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#generator" class="nav-link">Generator</a>
+        <a href="#examples" class="nav-link">Examples</a>
+        <a href="#about" class="nav-link">Prompt Engineering (IPE)</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#generator" class="btn btn-sm btn-glow">
+          <span>Craft Prompt</span>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class="hero-pill">
+          <span class="pill-pulse"></span>
+          <span class="pill-text">Your Universal AI Prompt Studio</span>
+          <span class="pill-divider">•</span>
+          <span class="pill-badge">College Project (IPE)</span>
+        </div>
+
+        <h1 class="hero-title">
+          One Idea. <span class="gradient-text">Any Prompt.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Turn your imagination into powerful, well-structured prompts for images, videos, websites, code and more. Designed for high-clarity results across Midjourney, ChatGPT, Claude, Cursor and Sora.
+        </p>
+
+        <!-- Transparency Disclaimer Banner -->
+        <div class="transparency-card">
+          <div class="transparency-icon">💡</div>
+          <div class="transparency-content">
+            <strong>How PromptCraft AI works:</strong> This website generates structured, engineered prompt instructions using Python rules. You copy the prompt into your preferred AI tool (ChatGPT, Midjourney, Claude, etc.). It does <em>not</em> directly generate images, videos, or full websites.
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#generator" class="btn btn-lg btn-primary">
+            <span>Launch Generator</span>
+            <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+          <a href="#examples" class="btn btn-lg btn-secondary">
+            <span>Explore 6 Quick Examples</span>
+          </a>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <span class="metric-number">7</span>
+            <span class="metric-label">Universal Categories</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-number">100%</span>
+            <span class="metric-label">Free & Zero API Keys</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-number">4</span>
+            <span class="metric-label">Quality Rubric Pillars</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Universal Prompt Generator Section -->
+    <section class="generator-section" id="generator">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-tag">AI STUDIO</div>
+          <h2 class="section-title">Universal Prompt Generator</h2>
+          <p class="section-desc">Select your desired medium, describe your vision in simple English, choose a visual style, and receive an optimized, ready-to-paste prompt.</p>
+        </div>
+
+        <div class="studio-card">
+          <form id="generator-form" class="studio-form" onsubmit="return false;">
+            
+            <!-- Category Selection Cards -->
+            <div class="form-group">
+              <div class="field-header">
+                <label class="field-label">1. Choose Category</label>
+                <span class="field-counter" id="active-category-display">Selected: Image Generation</span>
+              </div>
+              <div class="category-grid" role="radiogroup" aria-label="Category Selection">
+                
+                <button type="button" class="category-card active" data-category="image" role="radio" aria-checked="true">
+                  <span class="cat-icon">🖼️</span>
+                  <div class="cat-info">
+                    <span class="cat-title">Image Generation</span>
+                    <span class="cat-desc">Posters, photos, 3D art & product visuals</span>
+                  </div>
+                </button>
+
+                <button type="button" class="category-card" data-category="video" role="radio" aria-checked="false">
+                  <span class="cat-icon">🎬</span>
+                  <div class="cat-info">
+                    <span class="cat-title">Video Generation</span>
+                    <span class="cat-desc">Scenes, camera paths, lighting & pacing</span>
+                  </div>
+                </button>
+
+                <button type="button" class="category-card" data-category="website" role="radio" aria-checked="false">
+                  <span class="cat-icon">🌐</span>
+                  <div class="cat-info">
+                    <span class="cat-title">Website Creation</span>
+                    <span class="cat-desc">UI/UX, pages, layouts & responsive design</span>
+                  </div>
+                </button>
+
+                <button type="button" class="category-card" data-category="code" role="radio" aria-checked="false">
+                  <span class="cat-icon">💻</span>
+                  <div class="cat-info">
+                    <span class="cat-title">Coding & Software</span>
+                    <span class="cat-desc">Architecture, functions, tests & error handling</span>
+                  </div>
+                </button>
+
+                <button type="button" class="category-card" data-category="study" role="radio" aria-checked="false">
+                  <span class="cat-icon">📚</span>
+                  <div class="cat-info">
+                    <span class="cat-title">Study & Learning</span>
+                    <span class="cat-desc">Feynman explanations, summaries & quizzes</span>
+                  </div>
+                </button>
+
+                <button type="button" class="category-card" data-category="writing" role="radio" aria-checked="false">
+                  <span class="cat-icon">✍️</span>
+                  <div class="cat-info">
+                    <span class="cat-title">Writing & Presentation</span>
+                    <span class="cat-desc">Slide decks, executive essays & scripts</span>
+                  </div>
+                </button>
+
+                <button type="button" class="category-card" data-category="custom" role="radio" aria-checked="false">
+                  <span class="cat-icon">⚙️</span>
+                  <div class="cat-info">
+                    <span class="cat-title">Custom Meta-Prompt</span>
+                    <span class="cat-desc">Define your own role, task & custom rules</span>
+                  </div>
+                </button>
+
+              </div>
+              <input type="hidden" id="selected-category" name="category" value="image">
+            </div>
+
+            <!-- Dynamic Category Helper Hint -->
+            <div class="category-hint-box" id="category-hint">
+              <span class="hint-icon">💡</span>
+              <span class="hint-text" id="category-hint-text">
+                <strong>Image Tip:</strong> Mention subject, camera angle (wide, macro), lighting (neon rim, volumetric), and rendering style (octane, 8K, photorealistic).
+              </span>
+            </div>
+
+            <!-- Idea Description Input -->
+            <div class="form-group">
+              <div class="field-header">
+                <label for="idea-input" class="field-label">2. Describe What You Want to Create <span class="required">*</span></label>
+                <div class="field-utils">
+                  <button type="button" class="btn-text" id="clear-idea-btn">Clear</button>
+                  <span class="char-count" id="idea-char-count">0 / 3000</span>
+                </div>
+              </div>
+              <textarea 
+                id="idea-input" 
+                name="idea" 
+                rows="4" 
+                placeholder="e.g. A sprawling cyberpunk city at midnight with neon violet skyscrapers and flying vehicles in heavy rain..." 
+                maxlength="3000"
+                required
+              ></textarea>
+              <div class="input-error-msg" id="idea-error-msg" role="alert">Please enter an idea to generate your prompt.</div>
+            </div>
+
+            <!-- Style Selector -->
+            <div class="form-group">
+              <div class="field-header">
+                <label class="field-label">3. Select Output Style</label>
+                <span class="field-counter" id="active-style-display">Futuristic</span>
+              </div>
+              <div class="style-selector-row">
+                <label class="style-chip active">
+                  <input type="radio" name="style" value="futuristic" checked>
+                  <span class="chip-label">🔮 Futuristic</span>
+                </label>
+                <label class="style-chip">
+                  <input type="radio" name="style" value="cinematic">
+                  <span class="chip-label">🎬 Cinematic</span>
+                </label>
+                <label class="style-chip">
+                  <input type="radio" name="style" value="minimal">
+                  <span class="chip-label">🍃 Minimal</span>
+                </label>
+                <label class="style-chip">
+                  <input type="radio" name="style" value="professional">
+                  <span class="chip-label">💼 Professional</span>
+                </label>
+                <label class="style-chip">
+                  <input type="radio" name="style" value="technical">
+                  <span class="chip-label">⚡ Technical</span>
+                </label>
+                <label class="style-chip">
+                  <input type="radio" name="style" value="creative">
+                  <span class="chip-label">🎨 Creative</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Optional Additional Instructions -->
+            <div class="form-group">
+              <details class="instructions-accordion">
+                <summary class="accordion-summary">
+                  <span class="summary-title">
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="summary-icon">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                    Optional: Add Constraints, Target Audience or Negative Guidance
+                  </span>
+                  <span class="summary-badge">Optional</span>
+                </summary>
+                <div class="accordion-content">
+                  <textarea 
+                    id="instructions-input" 
+                    name="instructions" 
+                    rows="2" 
+                    placeholder="e.g. Include 16:9 aspect ratio, avoid watermark or text, make suitable for second-year college students..." 
+                    maxlength="2000"
+                  ></textarea>
+                  <span class="char-count small" id="instructions-char-count">0 / 2000</span>
+                </div>
+              </details>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-submit">
+              <button type="submit" id="generate-btn" class="btn btn-xl btn-primary btn-generate">
+                <span class="btn-spinner" id="btn-spinner" aria-hidden="true"></span>
+                <span class="btn-text-content" id="btn-text-content">
+                  <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+                  </svg>
+                  Generate Prompt
+                </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- PROMPT OUTPUT PANEL (Revealed after generation) -->
+        <div id="output-panel" class="output-panel hidden">
+          <div class="output-card">
+            
+            <!-- Output Header -->
+            <div class="output-header">
+              <div class="output-badges">
+                <span class="badge badge-category" id="output-category-badge">🖼️ Image Generation</span>
+                <span class="badge badge-style" id="output-style-badge">🔮 Futuristic</span>
+                <span class="badge badge-meta" id="output-word-count">0 Words</span>
+              </div>
+              <div class="output-actions">
+                <button type="button" class="btn btn-sm btn-outline" id="clear-output-btn" title="Clear this generated prompt">
+                  <svg viewBox="0 0 20 20" fill="currentColor" class="btn-icon-sm">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  Clear
+                </button>
+                <button type="button" class="btn btn-sm btn-outline" id="regenerate-btn" title="Generate an alternative variation">
+                  <svg viewBox="0 0 20 20" fill="currentColor" class="btn-icon-sm">
+                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                  </svg>
+                  Regenerate
+                </button>
+                <button type="button" class="btn btn-sm btn-glow" id="copy-btn" title="Copy to clipboard">
+                  <svg viewBox="0 0 20 20" fill="currentColor" class="btn-icon-sm" id="copy-icon">
+                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+                  </svg>
+                  <span id="copy-text">Copy Prompt</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Original Idea Reference Drawer -->
+            <div class="original-idea-card">
+              <span class="idea-tag">Original Idea:</span>
+              <span class="idea-text" id="output-original-idea"></span>
+            </div>
+
+            <!-- Prompt Text Container (Editable) -->
+            <div class="output-content-wrapper">
+              <div class="output-bar">
+                <span class="output-label">GENERATED PROMPT (READY TO PASTE)</span>
+                <span class="output-hint">You can edit the text directly before copying</span>
+              </div>
+              <textarea id="prompt-output-text" class="prompt-textarea" rows="14" spellcheck="false"></textarea>
+            </div>
+
+            <!-- Prompt Quality Check Box -->
+            <div class="quality-card" id="quality-card">
+              <div class="quality-header">
+                <div class="quality-title-area">
+                  <span class="quality-icon">⚡</span>
+                  <div>
+                    <h4 class="quality-title">Prompt Engineering Quality Check</h4>
+                    <span class="quality-subtitle" id="quality-rating-label">Calculating rubric score...</span>
+                  </div>
+                </div>
+                <div class="quality-score-badge">
+                  <span class="score-number" id="quality-score-value">88</span>
+                  <span class="score-max">/ 100</span>
+                </div>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="quality-progress-fill" style="width: 88%;"></div>
+              </div>
+
+              <!-- 4-Pillar Breakdown -->
+              <div class="rubric-grid">
+                <div class="rubric-item">
+                  <div class="rubric-top">
+                    <span>Clarity</span>
+                    <strong id="rubric-clarity">21/25</strong>
+                  </div>
+                  <div class="mini-bar"><div class="mini-bar-fill" id="bar-clarity" style="width: 84%;"></div></div>
+                </div>
+
+                <div class="rubric-item">
+                  <div class="rubric-top">
+                    <span>Context</span>
+                    <strong id="rubric-context">22/25</strong>
+                  </div>
+                  <div class="mini-bar"><div class="mini-bar-fill" id="bar-context" style="width: 88%;"></div></div>
+                </div>
+
+                <div class="rubric-item">
+                  <div class="rubric-top">
+                    <span>Specificity</span>
+                    <strong id="rubric-specificity">23/25</strong>
+                  </div>
+                  <div class="mini-bar"><div class="mini-bar-fill" id="bar-specificity" style="width: 92%;"></div></div>
+                </div>
+
+                <div class="rubric-item">
+                  <div class="rubric-top">
+                    <span>Output Format</span>
+                    <strong id="rubric-format">22/25</strong>
+                  </div>
+                  <div class="mini-bar"><div class="mini-bar-fill" id="bar-format" style="width: 88%;"></div></div>
+                </div>
+              </div>
+
+              <!-- Dynamic Suggestions -->
+              <div class="suggestions-box">
+                <h5 class="suggestions-title">Improvement Suggestions:</h5>
+                <ul class="suggestions-list" id="quality-suggestions-list">
+                  <li>Optional: You can copy and customize individual sections in the output text to fit your exact model parameters.</li>
+                </ul>
+              </div>
+
+              <!-- Heuristic Disclaimer -->
+              <p class="quality-disclaimer" id="quality-disclaimer">
+                Heuristic estimate based on prompt engineering best practices. It is not an AI judgment or a performance guarantee.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Quick Examples Section -->
+    <section class="examples-section" id="examples">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-tag">CURATED TEMPLATES</div>
+          <h2 class="section-title">Quick Examples</h2>
+          <p class="section-desc">Click any card below to automatically load the concept into the generator. You can customize the details and generate an instant tailored prompt.</p>
+        </div>
+
+        <div class="examples-grid">
+          {% for ex in examples %}
+          <div class="example-card" data-example-id="{{ ex.id }}">
+            <div class="example-top">
+              <span class="badge badge-category-sm">{{ ex.category_label }}</span>
+              <span class="example-style-tag">{{ ex.style|capitalize }}</span>
+            </div>
+            <h3 class="example-title">{{ ex.title }}</h3>
+            <p class="example-idea">{{ ex.idea }}</p>
+            <div class="example-footer">
+              <button type="button" class="btn btn-sm btn-example-load" 
+                data-category="{{ ex.category }}"
+                data-style="{{ ex.style }}"
+                data-idea="{{ ex.idea }}"
+                data-instructions="{{ ex.instructions }}">
+                <span>Load in Studio</span>
+                <svg viewBox="0 0 20 20" fill="currentColor" class="btn-icon-xs">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- About Prompt Engineering Section -->
+    <section class="about-section" id="about">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-tag">COLLEGE SUBJECT · IPE</div>
+          <h2 class="section-title">Introduction to Prompt Engineering</h2>
+          <p class="section-desc">Understanding the core principles that separate vague queries from high-performance AI responses.</p>
+        </div>
+
+        <div class="about-quote-box">
+          <div class="quote-mark">“</div>
+          <blockquote class="definition-quote">
+            Prompt engineering is the process of writing clear instructions and providing useful context so an AI tool can better understand what you want.
+          </blockquote>
+          <span class="quote-author">— IPE Course Core Definition</span>
+        </div>
+
+        <!-- 4 Pillars Cards -->
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-icon">🎯</div>
+            <h3 class="pillar-title">1. Clarity</h3>
+            <p class="pillar-desc">State the exact task with direct, unambiguous action verbs. Eliminate ambiguous phrasing, conflicting objectives, and unnecessary filler words.</p>
+            <div class="pillar-example"><em>"Build a responsive navbar"</em> instead of <em>"Make some web stuff"</em></div>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">🌐</div>
+            <h3 class="pillar-title">2. Context</h3>
+            <p class="pillar-desc">Provide the background setting, persona, target audience, and domain boundaries so the AI assumes the proper tone, depth, and framing.</p>
+            <div class="pillar-example"><em>"Act as a Senior Python Architect writing code for college students"</em></div>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">🛡️</div>
+            <h3 class="pillar-title">3. Constraints</h3>
+            <p class="pillar-desc">Define what the AI must do and what it must NOT do (negative prompts, aspect ratios, word caps, language constraints, and edge case rules).</p>
+            <div class="pillar-example"><em>"No external libraries; limit to pure standard library modules"</em></div>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">📋</div>
+            <h3 class="pillar-title">4. Output Format</h3>
+            <p class="pillar-desc">Instruct the AI exactly how to structure its final answer: Markdown tables, JSON schemas, numbered steps, or copyable code blocks.</p>
+            <div class="pillar-example"><em>"Format output as a 3-column table: Concept, Analogy, Code"</em></div>
+          </div>
+        </div>
+
+        <!-- Before & After Comparison -->
+        <div class="comparison-card">
+          <h3 class="comparison-header">Vague Prompt vs. PromptCraft AI Engineered Prompt</h3>
+          <div class="comparison-columns">
+            <div class="comparison-col before-col">
+              <div class="col-tag tag-before">❌ Vague Amateur Prompt</div>
+              <p class="prompt-snippet">"Give me a futuristic city picture with rain."</p>
+              <ul class="col-points">
+                <li>Undefined camera angle and lens depth</li>
+                <li>No lighting, color palette or aesthetic instructions</li>
+                <li>Prone to muddy, blurry or cartoonish AI hallucinations</li>
+                <li>Zero control over aspect ratio or resolution</li>
+              </ul>
+            </div>
+
+            <div class="comparison-col after-col">
+              <div class="col-tag tag-after">✨ PromptCraft AI Prompt</div>
+              <p class="prompt-snippet">"Sprawling neo-Tokyo metropolis at midnight, volumetric neon rim lighting, 50mm f/1.4 prime lens, octane render, 8K UHD, electric cyan and deep violet palette --ar 16:9 --v 6.1"</p>
+              <ul class="col-points">
+                <li>Precise camera parameters and lighting depth</li>
+                <li>Art-directed color palette and master resolution</li>
+                <li>Explicit negative constraints preventing blurry artifacts</li>
+                <li>Ready-to-copy parameter syntax for production models</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#top" class="brand-logo">
+            <span class="logo-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </span>
+            <span class="brand-text">PromptCraft<span class="brand-ai">AI</span></span>
+          </a>
+          <p class="footer-tagline">One Idea. Any Prompt. Universal Prompt Studio.</p>
+          <div class="footer-badge">College Project · Introduction to Prompt Engineering (IPE)</div>
+        </div>
+
+        <div class="footer-links-group">
+          <span class="footer-col-title">Navigation</span>
+          <a href="#generator">Studio Generator</a>
+          <a href="#examples">6 Quick Examples</a>
+          <a href="#about">Prompt Engineering Guide</a>
+          <a href="#top">Back to Top ↑</a>
+        </div>
+
+        <div class="footer-links-group">
+          <span class="footer-col-title">Supported AI Tools</span>
+          <span>ChatGPT & GPT-4o</span>
+          <span>Midjourney & Stable Diffusion</span>
+          <span>Claude 3.5 & v0.dev</span>
+          <span>Runway Gen-3 & Sora</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 PromptCraft AI. Built with Python Flask, HTML5, CSS3 & JavaScript for IPE.</p>
+        <p class="footer-disclaimer">Notice: PromptCraft AI generates prompt instructions for third-party AI models. It does not directly produce final images, videos, or full websites.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
